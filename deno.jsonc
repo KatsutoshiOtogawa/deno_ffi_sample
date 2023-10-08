@@ -1,0 +1,18 @@
+{
+    "tasks": {
+      "test": "deno test --doc --allow-all --parallel --coverage=./cov",
+      "help": "deno run --allow-env --allow-read --allow-sys main.ts help",
+      "compile": "deno run tasks/generator/create_error.ts --output out/aaa",
+      "which": "deno run -A --unstable test.ts"
+    },
+    "imports": {
+      "path/": "https://deno.land/std@0.201.0/path/",
+      "fs/": "https://deno.land/std@0.201.0/fs/",
+      "io/": "https://deno.land/std@0.201.0/io/",
+      "assert/": "https://deno.land/std@0.201.0/assert/",
+      "flags/": "https://deno.land/std@0.201.0/flags/",
+
+      // third party library
+      "x/plug/": "https://deno.land/x/plug@1.0.2/"
+    }
+}

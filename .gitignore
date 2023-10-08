@@ -1,0 +1,26 @@
+# MacOS generated files
+.DS_Store
+.DS_Store?
+
+.idea
+.vscode/settings.json
+.vim
+
+out/*
+ext/go_sample/out/*
+!/out/.gitignore
+!ext/go_sample/out/.gitignore
+
+*.orig
+*.pyc
+*.swp
+.env
+
+/.cargo_home/
+/.idea/
+/.vs/
+/.vscode/
+
+target/
+
+/third_party/
