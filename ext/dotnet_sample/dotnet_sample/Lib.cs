@@ -14,9 +14,10 @@ public partial class Lib
     [LibraryImport("msvcrt.dll")]
 // libc.soはシンボリックリンクのため、直接指定する。
 #elif LINUX_AMD64
-    [LibraryImport("/usr/lib/x86_64-linux-gnu/libc.so.6")]
+// debianは/lib/x86_64-linux-gnu/libc.so.6 osによってパスが違う。
+    [LibraryImport("/lib/x86_64-linux-gnu/libc.so.6")]
 #elif LINUX_ARM64
-    [LibraryImport("/usr/lib/aarch64-linux-gnu/libc.so.6")]
+    [LibraryImport("/lib/aarch64-linux-gnu/libc.so.6")]
 #endif
     [UnmanagedCallConv(CallConvs = new Type[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
     private static partial IntPtr malloc(int size);
@@ -32,9 +33,9 @@ public partial class Lib
     [LibraryImport("msvcrt.dll")]
     // libc.soはシンボリックリンクのため、直接指定する。
 #elif LINUX_AMD64
-    [LibraryImport("/usr/lib/x86_64-linux-gnu/libc.so.6")]
+    [LibraryImport("/lib/x86_64-linux-gnu/libc.so.6")]
 #elif LINUX_ARM64
-    [LibraryImport("/usr/lib/aarch64-linux-gnu/libc.so.6")]
+    [LibraryImport("/lib/aarch64-linux-gnu/libc.so.6")]
 #endif
     [UnmanagedCallConv(CallConvs = new Type[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
     private static partial void free(IntPtr ptr);
