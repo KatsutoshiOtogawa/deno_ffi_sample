@@ -22,3 +22,7 @@ RUN tar Jxvf "node-${NODE_VERSION}-linux-x64.tar.xz" -C /usr/local/ --strip-comp
 ENV TYPESCRIPT_VERSION=5.2.2
 RUN npm install -g typescript@${TYPESCRIPT_VERSION} 
 RUN apt install -y neovim
+
+# install for dotnet AOT
+RUN apt install -y clang zlib1g-dev
+

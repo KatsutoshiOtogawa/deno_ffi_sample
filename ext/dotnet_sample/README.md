@@ -26,3 +26,6 @@ deno run -A --unstable .\test_deno\aaa.ts
 
 Marshal.AllocHGlobalでメモリ確保した後に
 unsafeでデータ入れるならC＋＋と同じメモリ操作の動きになるっぽい。
+
+サポートされているのはwindowsとlinuxのx86_64とarm。
+macはサポートされていない。
