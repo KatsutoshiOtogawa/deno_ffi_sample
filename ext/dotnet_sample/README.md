@@ -33,3 +33,5 @@ macはサポートされていない。
 
 LibraryImportは動的に読み込むライブラリ。
 runtime側のOSにあること前提の動き。
+
+https://learn.microsoft.com/en-us/dotnet/core/rid-catalog

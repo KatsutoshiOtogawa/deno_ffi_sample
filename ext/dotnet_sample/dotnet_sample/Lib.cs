@@ -9,10 +9,13 @@ namespace dotnet_sample;
 
 public partial class Lib
 {
+#if WINDOWS_ARM64 || WINDOWS_X64
     // [LibraryImport("C:/Windows/SysWOW64/msvcrt.dll")]
-    // [LibraryImport("msvcrt.dll")]
-    // libc.soはシンボリックリンクのため、直接指定する。
+    [LibraryImport("msvcrt.dll")]
+// libc.soはシンボリックリンクのため、直接指定する。
+#elif LINUX_ARM64
     [LibraryImport("/usr/lib/aarch64-linux-gnu/libc.so.6")]
+#endif
     [UnmanagedCallConv(CallConvs = new Type[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
     private static partial IntPtr malloc(int size);
 
@@ -22,10 +25,13 @@ public partial class Lib
         return malloc(size);
     }
 
+#if WINDOWS_ARM64 || WINDOWS_X64
     // [LibraryImport("C:/Windows/SysWOW64/msvcrt.dll")]
-    // [LibraryImport("msvcrt.dll")]
+    [LibraryImport("msvcrt.dll")]
     // libc.soはシンボリックリンクのため、直接指定する。
+#elif LINUX_ARM64
     [LibraryImport("/usr/lib/aarch64-linux-gnu/libc.so.6")]
+#endif
     [UnmanagedCallConv(CallConvs = new Type[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
     private static partial void free(IntPtr ptr);
 

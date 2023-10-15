@@ -8,4 +8,33 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <DefineConstants>$(DefineConstants);CORECLR</DefineConstants>
+    <IsWindows Condition="'$(IsWindows)' =='true' or ( '$(IsWindows)' == '' and '$(OS)' == 'Windows_NT')">true</IsWindows>
+  </PropertyGroup>
+
+  <!-- Define non-windows, all configuration properties -->
+  <PropertyGroup Condition=" '$(IsWindows)' != 'true' ">
+    <DefineConstants>$(DefineConstants);UNIX</DefineConstants>
+  </PropertyGroup>
+
+  <!-- それぞれのOSアーキテクチャ向けにビルドされたか？ -->
+  <PropertyGroup Condition="'$(RuntimeIdentifier)' == 'linux-arm64'">
+    <DefineConstants>$(DefineConstants);LINUX_ARM64</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(RuntimeIdentifier)' == 'linux-x64'">
+    <DefineConstants>$(DefineConstants);LINUX_AMD64</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(RuntimeIdentifier)' == 'windows-arm64'">
+    <DefineConstants>$(DefineConstants);WINDOWS_ARM64</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(RuntimeIdentifier)' == 'windows-x64'">
+    <DefineConstants>$(DefineConstants);WINDOWS_AMD64</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(RuntimeIdentifier)' == 'osx-arm64'">
+    <DefineConstants>$(DefineConstants);OSX_ARM64</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(RuntimeIdentifier)' == 'osx-x64'">
+    <DefineConstants>$(DefineConstants);OSX_AMD64</DefineConstants>
+  </PropertyGroup>
 </Project>
