@@ -138,20 +138,28 @@ const CallSymbol = {
 
 function _load() {
 
-  const os = Deno.build.os;
+  let cpu =  "" 
+  if (Deno.build.arch == 'aarch64') {
+      cpu = 'arm64'
+  } else if (Deno.build.arch == 'x86_64') {
+      cpu = 'x64'
+  } else {
+    throw TypeError("Not supported cpu");
+  }
 
   let libname = "";
 
   // 
-  if (os === 'linux') {
-    libname = (new URL('../out/linux/dotnet_sample.so', import.meta.url)).href;
-  } else if (os === 'darwin') {
-    libname = (new URL('../out/mac/dotnet_sample.dylib', import.meta.url)).href;
-  } else if (os === 'windows') {
-    // C:/Users/katsutoshi/src/miyuu_ssh_core_windows/miyuu_ssh_core_windows/bin/Release/net7.0/win-x64/publish/miyuu_ssh_core_windows.dll
+  if (Deno.build.os === 'linux') {
+    // libname = (new URL('../out/linux/dotnet_sample.so', import.meta.url)).href;
+    libname = (new URL(`../dotnet_sample/bin/Release/net7.0/linux-${cpu}/publish/dotnet_sample.so`, import.meta.url)).pathname;
+  } else if (Deno.build.os === 'darwin') {
+    // libname = (new URL('../out/mac/dotnet_sample.dylib', import.meta.url)).href;
+    libname = (new URL(`../dotnet_sample/bin/Release/net7.0/mac-${cpu}/publish/dotnet_sample.dylib`, import.meta.url)).pathname;
+  } else if (Deno.build.os === 'windows') {
     // libname = "C:/Users/katsutoshi/src/miyuu_ssh_core_windows/miyuu_ssh_core_windows/bin/Release/net7.0/win-x64/publish/miyuu_ssh_core_windows.dll"
     // windowsの場合は右のようになるので、最初の一文字とバス。/C:/Users/
-    libname = (new URL('../dotnet_sample/bin/Release/net7.0/win-x64/publish/dotnet_sample.dll', import.meta.url)).pathname.substring(1);
+    libname = (new URL(`../dotnet_sample/bin/Release/net7.0/win-${cpu}/publish/dotnet_sample.dll`, import.meta.url)).pathname.substring(1);
   } else {
     throw TypeError("Not supported os");
   }
