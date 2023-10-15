@@ -13,6 +13,8 @@ public partial class Lib
     // [LibraryImport("C:/Windows/SysWOW64/msvcrt.dll")]
     [LibraryImport("msvcrt.dll")]
 // libc.soはシンボリックリンクのため、直接指定する。
+#elif LINUX_AMD64
+    [LibraryImport("/usr/lib/x86_64-linux-gnu/libc.so.6")]
 #elif LINUX_ARM64
     [LibraryImport("/usr/lib/aarch64-linux-gnu/libc.so.6")]
 #endif
@@ -29,6 +31,8 @@ public partial class Lib
     // [LibraryImport("C:/Windows/SysWOW64/msvcrt.dll")]
     [LibraryImport("msvcrt.dll")]
     // libc.soはシンボリックリンクのため、直接指定する。
+#elif LINUX_AMD64
+    [LibraryImport("/usr/lib/x86_64-linux-gnu/libc.so.6")]
 #elif LINUX_ARM64
     [LibraryImport("/usr/lib/aarch64-linux-gnu/libc.so.6")]
 #endif
