@@ -11,6 +11,9 @@ ext/go_sample/out/*
 !/out/.gitignore
 !ext/go_sample/out/.gitignore
 
+ext/dotnet_sample/dotnet_sample/bin
+ext/dotnet_sample/dotnet_sample/obj
+
 *.orig
 *.pyc
 *.swp
