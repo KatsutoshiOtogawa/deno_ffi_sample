@@ -9,7 +9,7 @@ namespace dotnet_sample;
 
 public partial class Lib
 {
-#if WINDOWS_ARM64 || WINDOWS_X64
+#if WINDOWS_ARM64 || WINDOWS_AMD64
     // [LibraryImport("C:/Windows/SysWOW64/msvcrt.dll")]
     [LibraryImport("msvcrt.dll")]
 // libc.soはシンボリックリンクのため、直接指定する。
@@ -25,7 +25,7 @@ public partial class Lib
         return malloc(size);
     }
 
-#if WINDOWS_ARM64 || WINDOWS_X64
+#if WINDOWS_ARM64 || WINDOWS_AMD64
     // [LibraryImport("C:/Windows/SysWOW64/msvcrt.dll")]
     [LibraryImport("msvcrt.dll")]
     // libc.soはシンボリックリンクのため、直接指定する。
