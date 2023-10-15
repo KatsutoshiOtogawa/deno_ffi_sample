@@ -8,6 +8,7 @@ https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/?tabs=net7%2C
 https://learn.microsoft.com/ja-jp/dotnet/api/system.runtime.interopservices.unmanagedcallersonlyattribute?view=net-7.0
 
  dotnet publish -c Release -r win-x64
+  dotnet publish -c Release -r linux-arm64
 
 
 BitTableがサポートされているものしか使えない。
@@ -29,3 +30,6 @@ unsafeでデータ入れるならC＋＋と同じメモリ操作の動きにな�
 
 サポートされているのはwindowsとlinuxのx86_64とarm。
 macはサポートされていない。
+
+LibraryImportは動的に読み込むライブラリ。
+runtime側のOSにあること前提の動き。
