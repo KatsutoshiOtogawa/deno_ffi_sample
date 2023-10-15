@@ -14,6 +14,8 @@ function load() {
   const { 
     Multiply,
     ReturnPointer,
+    ReturnPointer2,
+    PrintBuffer,
     // InitConfig,
     // Connect,
     // ClientClose,
@@ -21,11 +23,14 @@ function load() {
     // SessionRun,
     // SessionClose,
     Free,
+    FreeHGlobal,
   } = library.symbols;
 
   return {
     Multiply,
     ReturnPointer,
+    ReturnPointer2,
+    PrintBuffer,
     // InitConfig,
     // Connect,
     // ClientClose,
@@ -33,6 +38,7 @@ function load() {
     // SessionRun,
     // SessionClose,
     Free,
+    FreeHGlobal,
   };
 }
 

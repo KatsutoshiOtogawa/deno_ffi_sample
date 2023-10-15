@@ -33,6 +33,25 @@ const CallSymbol = {
     result: "pointer"
 
   },
+  "ReturnPointer2": {
+    name: "ReturnPointer2",
+    parameters: [
+
+    ],
+    result: "pointer"
+
+  },
+  "PrintBuffer": {
+    name: "PrintBuffer",
+    parameters: [
+      // pointerとはbufferなので値を入れれる。
+      // "pointer",
+      "buffer",
+      "i64"
+    ],
+    result: "void"
+
+  },
   "Free": {
     name: "Free",
     parameters: [
@@ -40,7 +59,16 @@ const CallSymbol = {
     ],
     result: "void"
 
-  }
+  },
+  "FreeHGlobal": {
+    name: "FreeHGlobal",
+    parameters: [
+      "pointer"
+    ],
+    result: "void"
+
+  },
+  
     // "InitConfig": {
     //   name: "InitConfig",
     //   parameters: [

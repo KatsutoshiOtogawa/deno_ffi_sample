@@ -71,6 +71,34 @@ public partial class Lib
         // }
         return ptr;
     }
+
+    // dotnetのAllocHGlobalを使った実装。
+    [UnmanagedCallersOnly(EntryPoint = "ReturnPointer2")]
+    public static BytespPtr ReturnPointer2() {
+
+        // var str = "Hello, Workd! Return Buffer";
+
+        // byte[] byteArray = Encoding.UTF8.GetBytes(str + '\0');
+
+        // var len = byteArray.Length;
+        // Cのメモリを確保アドレス番地を返す。
+        IntPtr ptr = Marshal.AllocHGlobal(8);
+        unsafe {
+            *(Int64* )ptr.ToPointer() = 5678;
+        }
+        // IntPtr ptr;
+        // unsafe {
+        //     ptr = (Int64 *) malloc(8);
+        //     *ptr = 1234;
+        // }
+
+
+        // for (int i=0; i< len; i++)
+        // {
+        //     Marshal.WriteByte(ptr, i, byteArray[i]);
+        // }
+        return ptr;
+    }
     // bufferを指すポインタを返す。ffi側のbufferの読み書きは未定義動作なので、
     // 読み込む場合はcsharp側に戻してから処理。
     [UnmanagedCallersOnly(EntryPoint = "ReturnBuffer")]
@@ -92,6 +120,7 @@ public partial class Lib
 
     // bufferを指すポインタを返す。ffi側のbufferの読み書きは未定義動作なので、
     // 読み込む場合はcsharp側に戻してから処理。
+    // AOTはByte配列で値を取れないのでポインタを使う。
     [UnmanagedCallersOnly(EntryPoint = "PrintBuffer")]
     public static void PrintBuffer(BytespPtr ptr, Int64 len) {
 

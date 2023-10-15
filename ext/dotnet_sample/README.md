@@ -1,5 +1,7 @@
 # How to build
 
+Visual Studio installerから、
+visual studio 2022のDesktop development with C++をデフォルト設定でインストールする。
 
 https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/?tabs=net7%2Cwindows#prerequisites
 
@@ -11,6 +13,16 @@ https://learn.microsoft.com/ja-jp/dotnet/api/system.runtime.interopservices.unma
 BitTableがサポートされているものしか使えない。
 https://learn.microsoft.com/ja-jp/dotnet/framework/interop/blittable-and-non-blittable-types
 
-Booleanが無いので、注意。
+1. Byte[]も使えない。がポインタは使えるのでポインタで受ける。
+
+2. Booleanが無いので、注意。
 
 https://github.com/dotnet/runtime/blob/main/src/coreclr/nativeaot/docs/compiling.md
+
+```bash
+deno run -A --unstable .\test_deno\aaa.ts
+
+```
+
+Marshal.AllocHGlobalでメモリ確保した後に
+unsafeでデータ入れるならC＋＋と同じメモリ操作の動きになるっぽい。

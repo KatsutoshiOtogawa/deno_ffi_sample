@@ -38,4 +38,22 @@ Free.restype = None
 
 Free(pointer)
 
+ReturnPointer2 = library.ReturnPointer2
+
+ReturnPointer2.argtypes = None
+ReturnPointer2.restype = ctypes.POINTER(ctypes.c_int64)
+
+pointer2 = ReturnPointer2()
+
+
+print(pointer2.contents.value)
+
+FreeHGlobal = library.FreeHGlobal
+
+# Free.argtypes = [ctypes.POINTER(ctypes.c_int64)]
+FreeHGlobal.argtypes = [ctypes.c_void_p]
+FreeHGlobal.restype = None
+
+FreeHGlobal(pointer2)
+
 # library.Free(bbb)

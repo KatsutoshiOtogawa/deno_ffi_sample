@@ -4,8 +4,11 @@ import {load, library} from './load_library.ts';
 const {
     Multiply,
 
+    PrintBuffer,
     ReturnPointer,
-    Free
+    ReturnPointer2,
+    Free,
+    FreeHGlobal,
 }  = load();
 
 
@@ -24,6 +27,21 @@ const ptrbuf = ptrtview.getBigInt64();
 console.log(ptrbuf);
 
 Free(buf);
+
+const buf2 = ReturnPointer2();
+
+// @ts-ignore
+const ptrtview2 = new Deno.UnsafePointerView(buf2)
+
+const ptrbuf2 = ptrtview2.getBigInt64();
+
+console.log(ptrbuf2);
+
+FreeHGlobal(buf2);
+
+// 文字列はUint8Arrayで渡す。
+const mes_GO = new TextEncoder().encode("Hello Println_dotnet");
+PrintBuffer(mes_GO, mes_GO.length);
 
 // const CallSymbol = {
 //     "Multiply": {
