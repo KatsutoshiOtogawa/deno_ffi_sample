@@ -31,7 +31,8 @@
 		"vscode": {
 			"extensions": [
 				"denoland.vscode-deno",
-				"golang.go"
+				"golang.go",
+				"vscjava.vscode-java-pack"
 			],
 			"settings": {
 				"deno.enable": true,

@@ -26,3 +26,24 @@ RUN apt install -y neovim
 # install for dotnet AOT
 RUN apt install -y clang zlib1g-dev
 
+
+ENV GRAALVM_VERSION=21
+
+RUN wget "https://download.oracle.com/graalvm/${GRAALVM_VERSION}/latest/graalvm-jdk-${GRAALVM_VERSION}_linux-x64_bin.tar.gz"
+
+RUN tar zxvf "graalvm-jdk-${GRAALVM_VERSION}_linux-x64_bin.tar.gz" -C /usr/local && rm "graalvm-jdk-${GRAALVM_VERSION}_linux-x64_bin.tar.gz"
+
+RUN mv /usr/local/graalvm-jdk-21.0.1+12.1 /usr/local/graalvm-jdk
+
+
+ENV JAVA_HOME=/usr/local/graalvm-jdk
+ENV PATH=${JAVA_HOME}/bin:${PATH}
+
+ENV MAVEN_VERSION=3.9.5
+RUN wget "https://dlcdn.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz"
+
+RUN tar zxvf "apache-maven-${MAVEN_VERSION}-bin.tar.gz" -C /usr/local && rm "apache-maven-${MAVEN_VERSION}-bin.tar.gz"
+
+RUN mv /usr/local/apache-maven-${MAVEN_VERSION} /usr/local/maven
+
+ENV PATH=/usr/local/maven/bin:${PATH}
