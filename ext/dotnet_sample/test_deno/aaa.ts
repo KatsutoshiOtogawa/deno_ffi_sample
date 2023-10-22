@@ -7,6 +7,9 @@ const {
     PrintBuffer,
     ReturnPointer,
     ReturnPointer2,
+    ReturnPointer3,
+    PointerUse2,
+    PointerUse3,
     Free,
     FreeHGlobal,
 }  = load();
@@ -42,6 +45,13 @@ FreeHGlobal(buf2);
 // 文字列はUint8Arrayで渡す。
 const mes_GO = new TextEncoder().encode("Hello Println_dotnet");
 PrintBuffer(mes_GO, mes_GO.length);
+
+
+const ptr3 = ReturnPointer3();
+
+PointerUse3(ptr3);
+
+FreeHGlobal(ptr3);
 
 // const CallSymbol = {
 //     "Multiply": {

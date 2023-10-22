@@ -47,3 +47,15 @@ RUN tar zxvf "apache-maven-${MAVEN_VERSION}-bin.tar.gz" -C /usr/local && rm "apa
 RUN mv /usr/local/apache-maven-${MAVEN_VERSION} /usr/local/maven
 
 ENV PATH=/usr/local/maven/bin:${PATH}
+
+# https://gradle.org/next-steps/?version=8.4&format=bin
+
+ENV GRADLE_VERSION=8.4
+
+RUN wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip
+
+RUN unzip gradle-${GRADLE_VERSION}-bin.zip -d /usr/local
+
+RUN mv /usr/local/gradle-${GRADLE_VERSION} /usr/local/gradle
+
+ENV PATH=/usr/local/gradle/bin:${PATH}

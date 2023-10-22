@@ -35,3 +35,8 @@ LibraryImportは動的に読み込むライブラリ。
 runtime側のOSにあること前提の動き。
 
 https://learn.microsoft.com/en-us/dotnet/core/rid-catalog
+
+dotnetのAOTではstructのポインタを作れないので、まだ使うのは待った方が良い。
+
+System.Runtime.InteropServices.MarshalDirectiveException:
+Struct 'Wrapper' requires marshalling that is not yet supported by this compiler.

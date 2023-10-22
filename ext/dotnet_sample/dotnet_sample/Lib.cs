@@ -4,8 +4,37 @@ using CsharpPtr = System.IntPtr;
 // Byte配列へのポインタ
 using BytespPtr = System.IntPtr;
 
+using System.Diagnostics.CodeAnalysis;
 
 namespace dotnet_sample;
+
+public partial class Lib
+{
+    public class Content {
+        public string mes;
+
+        public Content(string mes)
+        {
+
+            this.mes = mes;
+        }
+        public  void Print() {
+            System.Console.WriteLine(mes);
+        }
+    }
+    public struct Wrapper {
+
+        public Content content;
+        
+        public Wrapper(Content content)
+        {
+            this.content = content;
+        }
+    }
+    [UnconditionalSuppressMessage("AOT", "IL3050:Calling members annotated with 'RequiresDynamicCodeAttribute' may break functionality when AOT compiling.", Justification = "<Pending>")]
+    public readonly static int Wrapper_Size = Marshal.SizeOf(typeof(Wrapper));
+
+}
 
 public partial class Lib
 {
@@ -62,28 +91,10 @@ public partial class Lib
     [UnmanagedCallersOnly(EntryPoint = "ReturnPointer")]
     public static BytespPtr ReturnPointer() {
 
-        // var str = "Hello, Workd! Return Buffer";
-
-        // byte[] byteArray = Encoding.UTF8.GetBytes(str + '\0');
-
-        // var len = byteArray.Length;
-        // Cのメモリを確保アドレス番地を返す。
-;
         IntPtr ptr =  malloc(8);
         unsafe {
             *(Int64* )ptr.ToPointer() = 1234;
         }
-        // IntPtr ptr;
-        // unsafe {
-        //     ptr = (Int64 *) malloc(8);
-        //     *ptr = 1234;
-        // }
-
-
-        // for (int i=0; i< len; i++)
-        // {
-        //     Marshal.WriteByte(ptr, i, byteArray[i]);
-        // }
         return ptr;
     }
 
@@ -91,29 +102,43 @@ public partial class Lib
     [UnmanagedCallersOnly(EntryPoint = "ReturnPointer2")]
     public static BytespPtr ReturnPointer2() {
 
-        // var str = "Hello, Workd! Return Buffer";
-
-        // byte[] byteArray = Encoding.UTF8.GetBytes(str + '\0');
-
-        // var len = byteArray.Length;
         // Cのメモリを確保アドレス番地を返す。
         IntPtr ptr = Marshal.AllocHGlobal(8);
-        unsafe {
-            *(Int64* )ptr.ToPointer() = 5678;
-        }
-        // IntPtr ptr;
-        // unsafe {
-        //     ptr = (Int64 *) malloc(8);
-        //     *ptr = 1234;
-        // }
-
-
-        // for (int i=0; i< len; i++)
-        // {
-        //     Marshal.WriteByte(ptr, i, byteArray[i]);
-        // }
+        Marshal.WriteInt64(ptr, 5678);
         return ptr;
     }
+
+    // Cのオブジェクトをラッピングしている構造のポインタの作成
+    [UnmanagedCallersOnly(EntryPoint = "ReturnPointer3")]
+    public static BytespPtr ReturnPointer3() {
+
+        // Cのメモリを確保アドレス番地を返す。
+        IntPtr ptr = Marshal.AllocHGlobal(Wrapper_Size);
+        var content = new Content("Pointer");
+
+        // 割り当てたアドレスを入れる。
+        Marshal.StructureToPtr(new Wrapper(content), ptr, false);
+        return ptr;
+    }
+
+    [UnmanagedCallersOnly(EntryPoint = "PointerUse2")]
+    public static void PointerUse2(IntPtr ptr) {
+
+        // allocしたメモリを値に戻す。
+        Int64 value = Marshal.ReadInt64(ptr);
+        
+        System.Console.WriteLine(value);
+    }
+
+    [UnmanagedCallersOnly(EntryPoint = "PointerUse3")]
+    public static void PointerUse3(IntPtr ptr) {
+
+        var wrapper = Marshal.PtrToStructure<Wrapper>(ptr);
+
+        // 構造体から使いたい処理を呼び出す。
+        wrapper.content.Print();
+    }
+
     // bufferを指すポインタを返す。ffi側のbufferの読み書きは未定義動作なので、
     // 読み込む場合はcsharp側に戻してから処理。
     [UnmanagedCallersOnly(EntryPoint = "ReturnBuffer")]

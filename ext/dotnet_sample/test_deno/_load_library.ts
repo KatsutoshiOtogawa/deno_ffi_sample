@@ -41,6 +41,30 @@ const CallSymbol = {
     result: "pointer"
 
   },
+  "ReturnPointer3": {
+    name: "ReturnPointer2",
+    parameters: [
+
+    ],
+    result: "pointer"
+
+  },
+  "PointerUse2": {
+    name: "PointerUse2",
+    parameters: [
+      "pointer"
+    ],
+    result: "void"
+
+  },
+  "PointerUse3": {
+    name: "PointerUse3",
+    parameters: [
+      "pointer"
+    ],
+    result: "void"
+
+  },
   "PrintBuffer": {
     name: "PrintBuffer",
     parameters: [
