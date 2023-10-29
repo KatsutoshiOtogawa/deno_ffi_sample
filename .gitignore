@@ -22,7 +22,6 @@ ext/dotnet_sample/dotnet_sample/obj
 /.cargo_home/
 /.idea/
 /.vs/
-/.vscode/
 
 target/
 
